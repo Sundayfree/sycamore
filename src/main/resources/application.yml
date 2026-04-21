@@ -1,0 +1,62 @@
+server:
+  port: 8080
+  servlet:
+#    context-path: /api
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  application:
+    name: sycamore
+
+  # 数据源配置 CREATE DATABASE sycamore DEFAULT CHARACTER SET utf8mb4;
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sycamore?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+
+  # Redis配置
+#  data:
+#    redis:
+#      host: localhost
+#      port: 6379
+#      password:
+#      database: 0
+#      timeout: 3000
+
+#  # RabbitMQ配置
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
+#    virtual-host: /
+#
+## MyBatis Plus配置
+#mybatis-plus:
+#  mapper-locations: classpath*:/mapper/**/*.xml
+#  type-aliases-package: com.lobster.pos.**.entity
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  global-config:
+#    db-config:
+#      id-type: auto
+#      logic-delete-field: deleted
+#      logic-delete-value: 1
+#      logic-not-delete-value: 0
+#
+# Knife4j配置
+#knife4j:
+#  enable: true
+#  setting:
+#    language: zh_CN
+#  production: false
+#
+## 日志配置
+#logging:
+#  level:
+#    com.lobster.pos: debug
+#    org.springframework: info
