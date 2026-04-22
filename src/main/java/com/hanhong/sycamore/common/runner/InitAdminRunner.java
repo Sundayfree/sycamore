@@ -14,8 +14,8 @@ package com.hanhong.sycamore.common.runner;
  * @since 2026-04
  */
 
-import com.hanhong.sycamore.system.entity.Employee;
-import com.hanhong.sycamore.system.service.impl.EmployeeServiceImpl;
+import com.hanhong.sycamore.modules.system.entity.Employee;
+import com.hanhong.sycamore.modules.system.service.impl.EmployeeServiceImpl;
 import jakarta.annotation.Resource;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

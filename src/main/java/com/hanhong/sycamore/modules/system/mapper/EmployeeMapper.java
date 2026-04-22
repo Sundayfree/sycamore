@@ -11,10 +11,10 @@
  * @since 2026-04
  */
 
-package com.hanhong.sycamore.system.mapper;
+package com.hanhong.sycamore.modules.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.hanhong.sycamore.system.entity.Employee;
+import com.hanhong.sycamore.modules.system.entity.Employee;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

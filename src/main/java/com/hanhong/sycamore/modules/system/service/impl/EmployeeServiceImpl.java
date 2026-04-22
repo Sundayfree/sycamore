@@ -1,4 +1,4 @@
-package com.hanhong.sycamore.system.service.impl;
+package com.hanhong.sycamore.modules.system.service.impl;
 /**
  * Sycamore Restaurant System
  *
@@ -14,9 +14,9 @@ package com.hanhong.sycamore.system.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hanhong.sycamore.system.entity.Employee;
-import com.hanhong.sycamore.system.service.EmployeeServiceInter;
-import com.hanhong.sycamore.system.mapper.EmployeeMapper;
+import com.hanhong.sycamore.modules.system.entity.Employee;
+import com.hanhong.sycamore.modules.system.service.EmployeeServiceInter;
+import com.hanhong.sycamore.modules.system.mapper.EmployeeMapper;
 import org.springframework.stereotype.Service;
 
 /**

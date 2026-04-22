@@ -1,4 +1,4 @@
-package com.hanhong.sycamore.system.service;
+package com.hanhong.sycamore.modules.system.service;
 /**
  * Sycamore Restaurant System
  *
@@ -13,7 +13,7 @@ package com.hanhong.sycamore.system.service;
  */
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.hanhong.sycamore.system.entity.Employee;
+import com.hanhong.sycamore.modules.system.entity.Employee;
 
 /**
  * 系统用户Service

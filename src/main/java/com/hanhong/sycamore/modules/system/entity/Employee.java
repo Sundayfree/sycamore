@@ -11,7 +11,7 @@
  * @since 2026-04
  */
 
-package com.hanhong.sycamore.system.entity;
+package com.hanhong.sycamore.modules.system.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.hanhong.sycamore.common.entity.BaseEntity;

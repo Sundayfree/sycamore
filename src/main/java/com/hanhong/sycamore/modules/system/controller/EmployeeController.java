@@ -1,4 +1,4 @@
-package com.hanhong.sycamore.system.controller;
+package com.hanhong.sycamore.modules.system.controller;
 /**
  * Sycamore Restaurant System
  *
@@ -14,8 +14,8 @@ package com.hanhong.sycamore.system.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hanhong.sycamore.common.util.Result;
-import com.hanhong.sycamore.system.entity.Employee;
-import com.hanhong.sycamore.system.service.EmployeeServiceInter;
+import com.hanhong.sycamore.modules.system.entity.Employee;
+import com.hanhong.sycamore.modules.system.service.EmployeeServiceInter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
