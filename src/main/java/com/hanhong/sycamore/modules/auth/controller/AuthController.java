@@ -15,17 +15,15 @@ package com.hanhong.sycamore.modules.auth.controller;
 
 import com.hanhong.sycamore.common.util.JwtUtil;
 import com.hanhong.sycamore.common.util.Result;
-import com.hanhong.sycamore.common.vo.LoggedUser;
+import com.hanhong.sycamore.common.dto.LoggedUser;
 import com.hanhong.sycamore.modules.auth.service.AuthService;
 import io.jsonwebtoken.Claims;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@Tag(name = "认证", description = "登录/登出")
+
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -33,12 +31,6 @@ public class AuthController {
 
     private final AuthService authService;
 
-    /**
-     * 登录
-     * POST /v1/auth/login
-     * Body: { "username": "admin", "password": "admin456" }
-     */
-    @Operation(summary = "登录", description = "后台登陆")
     @PostMapping("/login")
     public Result<AuthService.LoginResult> login(@RequestBody Map<String, String> body) {
         String username = body.get("username");
@@ -50,7 +42,6 @@ public class AuthController {
         return Result.error("用户名或密码错误");
     }
 
-    @Operation(summary = "验证 Token", description = "检查当前 token 是否有效")
     @GetMapping("/check")
     public Result<LoggedUser> checkToken(@RequestHeader(value = "Authorization", required = false) String auth) {
         if (auth == null || auth.isBlank()) {
@@ -82,14 +73,9 @@ public class AuthController {
         }
     }
 
-//    /**
-//     * 登出
-//     * POST /v1/auth/logout
-//     */
-//    @Operation(summary = "登出", description = "清除 token")
-//    @PostMapping("/logout")
-//    public Result<Void> logout(@RequestHeader(value = "Authorization", required = false) String auth) {
-//        authService.logout(auth);
-//        return Result.success();
-//    }
+    @PostMapping("/logout")
+    public Result<Void> logout(@RequestHeader("Authorization") String auth) {
+        authService.logout(auth);
+        return Result.success();
+    }
 }

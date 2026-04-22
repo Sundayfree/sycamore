@@ -15,37 +15,29 @@ package com.hanhong.sycamore.modules.auth.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hanhong.sycamore.common.enums.RoleType;
+import com.hanhong.sycamore.common.util.General;
 import com.hanhong.sycamore.common.util.JwtUtil;
-import com.hanhong.sycamore.common.vo.LoggedUser;
+import com.hanhong.sycamore.common.dto.LoggedUser;
+import com.hanhong.sycamore.modules.auth.entity.UserToken;
+import com.hanhong.sycamore.modules.auth.mapper.UserTokenMapper;
 import com.hanhong.sycamore.modules.system.entity.Employee;
 import com.hanhong.sycamore.modules.system.mapper.EmployeeMapper;
+import io.jsonwebtoken.Claims;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Date;
 
-/**
- * 登录认证服务
- *
- * 支持两种模式：
- * 1. 演示模式：admin/admin456 直接登录
- * 2. 正式模式：从数据库验证用户
- *
- * 业务规则：
- * - 店长/店员登录 → 自动设置为用户所属门店的shopId，且不允许切换
- * - 老板/管理员登录 → 可以选择门店，默认设置一个shopId
- *
- * Token 格式：Bearer <uuid>（简化版 UUID token）
- */
+
 @Service
 public class AuthService {
 
     @Autowired
     private EmployeeMapper employeeMapper;
+
+    @Autowired
+    private UserTokenMapper userTokenMapper;
 
     public LoginResult login(String username, String password) {
 
@@ -54,13 +46,20 @@ public class AuthService {
         }
 
         // 查询员工
-        LambdaQueryWrapper<Employee> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Employee::getName, username);
-        wrapper.eq(Employee::getPasswordHash, password);
-
-        Employee employee = employeeMapper.selectOne(wrapper);
+        Employee employee = employeeMapper.selectOne(
+                new LambdaQueryWrapper<Employee>()
+                        .eq(Employee::getEmpNo, username)
+        );
 
         if (employee == null) {
+            return null;
+        }
+
+        if (employee.getStatus() == 0) {
+            return null;
+        }
+
+        if (!General.matchPassword(password, employee.getPasswordHash())) {
             return null;
         }
 
@@ -76,13 +75,24 @@ public class AuthService {
                 employee.getId(),
                 role,
                 employee.getShopId(),
-                employee.getName()
+                employee.getFullname()
         );
+
+        UserToken userToken = new UserToken();
+        userToken.setEmployeeId(employee.getId());
+        userToken.setShopId(employee.getShopId());
+        userToken.setToken(token);
+        userToken.setExpireTime(LocalDateTime.now().plusDays(1));
+
+        userTokenMapper.delete(new LambdaQueryWrapper<UserToken>()
+                .eq(UserToken::getEmployeeId, employee.getId()));
+
+        userTokenMapper.insert(userToken);
 
         // 返回用户信息
         LoggedUser user = new LoggedUser();
         user.setUserId(employee.getId());
-        user.setUsername(employee.getName());
+        user.setUsername(employee.getFullname());
         user.setRealName("系统管理员");
         user.setRole(role);
         user.setShopId(employee.getShopId());
@@ -91,15 +101,23 @@ public class AuthService {
         return new LoginResult(token, user);
     }
 
-//    /**
-//     * 登出
-//     */
-//    public void logout(String token) {
-//        if (token != null && token.startsWith("Bearer ")) {
-//            token = token.substring(7);
-//        }
-//        tokenStore.remove(token);
-//    }
+    /**
+     * logout
+     */
+    public void logout(String auth) {
+        if (auth == null || auth.isBlank()) {
+            return;
+        }
+
+        String token = auth.startsWith("Bearer ")
+                ? auth.substring(7)
+                : auth;
+
+        userTokenMapper.delete(
+                new LambdaQueryWrapper<UserToken>()
+                        .eq(UserToken::getToken, token)
+        );
+    }
 
     // ============================
     // DTO

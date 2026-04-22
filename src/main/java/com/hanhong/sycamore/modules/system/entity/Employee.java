@@ -39,7 +39,7 @@ public class Employee extends BaseEntity implements Serializable {
 
     private String empNo;
 
-    private String name;
+    private String fullname;
 
     private Integer gender;
 
@@ -58,14 +58,6 @@ public class Employee extends BaseEntity implements Serializable {
     private LocalDate hireDate;
 
     private LocalDate leaveDate;
-
-    private Integer loginFailCount;
-
-    private LocalDateTime lockUntil;
-
-    private LocalDateTime lastLoginAt;
-
-    private String lastLoginIp;
 
     private Integer deleted;
 

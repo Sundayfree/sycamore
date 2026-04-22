@@ -14,6 +14,7 @@ package com.hanhong.sycamore.common.runner;
  * @since 2026-04
  */
 
+import com.hanhong.sycamore.common.util.General;
 import com.hanhong.sycamore.modules.system.entity.Employee;
 import com.hanhong.sycamore.modules.system.service.impl.EmployeeServiceImpl;
 import jakarta.annotation.Resource;
@@ -25,7 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Component
-public class InitAdminRunner implements ApplicationRunner {
+public class InitDataRunner implements ApplicationRunner {
 
     @Resource
     private EmployeeServiceImpl employeeService;
@@ -40,7 +41,7 @@ public class InitAdminRunner implements ApplicationRunner {
         Employee admin = new Employee();
         admin.setShopId(1L);
         admin.setEmpNo("admin");
-        admin.setName("Super Admin");
+        admin.setFullname("Super Admin");
         admin.setGender(1);
         admin.setPhone("00000000000");
         admin.setRoleId(1L);
@@ -49,8 +50,7 @@ public class InitAdminRunner implements ApplicationRunner {
         admin.setDeleted(0);
         admin.setCreatedAt(LocalDateTime.now());
         admin.setUpdatedAt(LocalDateTime.now());
-
-        admin.setPasswordHash("123456");
+        admin.setPasswordHash(General.encodePassword("123456"));
         employeeService.save(admin);
     }
 }

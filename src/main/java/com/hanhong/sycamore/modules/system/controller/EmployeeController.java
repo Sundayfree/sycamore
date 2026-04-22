@@ -37,7 +37,7 @@ public class EmployeeController {
             @RequestParam(required = false) String keyword,
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer size) {
-        
+
         LambdaQueryWrapper<Employee> wrapper = new LambdaQueryWrapper<>();
         if (shopId != null) {
             wrapper.eq(Employee::getShopId, shopId);
@@ -46,7 +46,7 @@ public class EmployeeController {
             wrapper.eq(Employee::getStatus, status);
         }
         if (keyword != null && !keyword.isEmpty()) {
-            wrapper.and(w -> w.like(Employee::getName, keyword)
+            wrapper.and(w -> w.like(Employee::getFullname, keyword)
                     .or().like(Employee::getPhone, keyword)
                     .or().like(Employee::getEmpNo, keyword));
         }

@@ -20,10 +20,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * 统一API响应结果
- * 符合API-00规范：code=0表示成功
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
