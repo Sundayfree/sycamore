@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("t_employee")
+@TableName("employee")
 public class Employee extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

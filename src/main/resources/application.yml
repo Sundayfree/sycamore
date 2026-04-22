@@ -17,6 +17,11 @@ spring:
     url: jdbc:mysql://localhost:3306/sycamore?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
     username: root
 
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+
   # Redis配置
 #  data:
 #    redis:
