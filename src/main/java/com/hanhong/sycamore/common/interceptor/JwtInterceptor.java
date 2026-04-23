@@ -71,8 +71,8 @@ public class JwtInterceptor implements HandlerInterceptor {
                 response.getWriter().write("token过期");
                 return false;
             }
-
-            UserContext.set(claims);
+// TODO if use it later
+//            UserContext.set(claims);
 
             return true;
 

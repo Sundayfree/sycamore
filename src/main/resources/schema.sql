@@ -25,10 +25,23 @@ CREATE TABLE IF NOT EXISTS user_token (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     employee_id BIGINT NOT NULL,
     shop_id BIGINT NOT NULL,
-    c VARCHAR(512) NOT NULL,
+    token VARCHAR(512) NOT NULL,
     expire_time DATETIME NOT NULL,
     create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     UNIQUE KEY uk_token (token),
     KEY idx_employee_id (employee_id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS role (
+    id bigint NOT NULL AUTO_INCREMENT,
+    shop_id bigint NOT NULL,
+    role_code varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    role_name varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    description varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    is_system tinyint NOT NULL DEFAULT 0,
+    status tinyint NOT NULL DEFAULT 1,
+    created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

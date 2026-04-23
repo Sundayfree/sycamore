@@ -39,4 +39,6 @@ public interface EmployeeServiceInter extends IService<Employee> {
      * 更新用户
      */
     boolean updateUser(Long userId, Employee user);
+
+    boolean assignRole(Long employeeId, Long roleId);
 }

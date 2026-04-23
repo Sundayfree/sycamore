@@ -48,4 +48,17 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         user.setId(userId);
         return updateById(user);
     }
+
+
+    @Override
+    public boolean assignRole(Long employeeId, Long roleId) {
+
+        Employee employee = this.getById(employeeId);
+        if (employee == null) {
+            return false;
+        }
+
+        employee.setRoleId(roleId);
+        return this.updateById(employee);
+    }
 }

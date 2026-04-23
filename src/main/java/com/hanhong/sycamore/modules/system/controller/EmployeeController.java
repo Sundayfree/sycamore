@@ -29,7 +29,6 @@ public class EmployeeController {
     @Autowired
     private EmployeeServiceInter employeeService;
 
-    @Operation(summary = "分页查询人员")
     @GetMapping
     public Result<Page<Employee>> list(
             @RequestParam(required = false) Long shopId,
@@ -56,21 +55,18 @@ public class EmployeeController {
         return Result.success(result);
     }
 
-    @Operation(summary = "根据ID查询人员")
     @GetMapping("/{id}")
     public Result<Employee> getById(@PathVariable Long id) {
         Employee employee = employeeService.getById(id);
         return Result.success(employee);
     }
 
-    @Operation(summary = "创建人员")
     @PostMapping
     public Result<Employee> create(@RequestBody Employee employee) {
         employeeService.save(employee);
         return Result.success(employee);
     }
 
-    @Operation(summary = "更新人员")
     @PutMapping("/{id}")
     public Result<Employee> update(@PathVariable Long id, @RequestBody Employee employee) {
         employee.setId(id);
@@ -78,10 +74,15 @@ public class EmployeeController {
         return Result.success(employee);
     }
 
-    @Operation(summary = "删除人员")
     @DeleteMapping("/{id}")
     public Result<Void> delete(@PathVariable Long id) {
         employeeService.removeById(id);
+        return Result.success();
+    }
+
+    @PostMapping("/assign-role")
+    public Result<Void> assignRole(@RequestParam Long employeeId, @RequestParam Long roleId) {
+        employeeService.assignRole(employeeId, roleId);
         return Result.success();
     }
 }
